@@ -11,3 +11,4 @@ CREATE TABLE entries (
   image LONGBLOB 
   );
 ```
+![text-editor](https://user-images.githubusercontent.com/30929830/208999962-144e9843-3343-4b2b-91ad-6ab638c7fcf9.png)

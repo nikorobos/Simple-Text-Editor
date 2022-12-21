@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Text Editor</h1>
+        <hr>
+        <form method="post" action="process.php" enctype="multipart/form-data">
+            <input type="hidden" id="text" name="text">
+            <div class="form-group">
+            <input class="btn btn-primary" type="file" id="image" name="image" accept="image/*"><br><br>
+                <button type="button" class="btn btn-primary" onclick="document.execCommand('bold', false, null)">Bold</button>
+                <button type="button" class="btn btn-primary" onclick="document.execCommand('italic', false, null)">Italic</button>
+                <button type="button" class="btn btn-primary" onclick="document.execCommand('justifyLeft', false, null)">Align - Left</button>
+                <button type="button" class="btn btn-primary" onclick="document.execCommand('justifyCenter', false, null)">Align - Center</button>
+                <button type="button" class="btn btn-primary" onclick="document.execCommand('justifyRight', false, null)">Align - Right</button>
+                <button type="button" class="btn btn-primary" onclick="document.execCommand('formatBlock', false, 'h2')">H2</button>
+                <button type="button" class="btn btn-primary" onclick="document.execCommand('formatBlock', false, 'h3')">H3</button>
+                <button type="button" class="btn btn-primary" onclick="document.execCommand('formatBlock', false, 'h4')">H4</button>
+                <button type="button" class="btn btn-primary" onclick="document.execCommand('insertUnorderedList', false, null)">Bullet List</button>
+                <button type="button" class="btn btn-primary" onclick="document.execCommand('insertOrderedList', false, null)">Ordered List</button>
+               
+            </div>
+        <div id="editor" class="form-control" contenteditable="true"></div>
+        
+            <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </form>
+
+<!-- Add a script to update the hidden text input with the content of the editor -->
+<script>
+document.querySelector('#editor').addEventListener('input', function() {
+    document.querySelector('#text').value = this.innerHTML;
+});
+document.querySelector('#image').addEventListener('change', function() {
+    if (this.files && this.files[0]) {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var img = new Image();
+            img.src = e.target.result;
+            img.alt = file.name;
+            document.querySelector('#editor').appendChild(img);
+        }
+        reader.readAsDataURL(file);
+    }
+});
+</script>
